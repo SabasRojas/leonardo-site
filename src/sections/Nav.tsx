@@ -118,7 +118,7 @@ export function Nav() {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="fixed inset-0 z-[90] flex flex-col bg-ink/95 backdrop-blur-xl lg:hidden"
+            className="fixed inset-0 z-[90] flex flex-col bg-ink/[0.97] lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

@@ -35,7 +35,8 @@ export function Contact() {
         <Reveal className="surface-card relative overflow-hidden rounded-3xl p-7 sm:p-12 lg:p-16">
           <div aria-hidden className="pointer-events-none absolute inset-0">
             <div className="absolute inset-0 bg-grid opacity-50 [mask-image:radial-gradient(ellipse_at_top_right,black,transparent_70%)]" />
-            <div className="absolute -top-32 -right-24 size-[28rem] rounded-full bg-amber/10 blur-[120px]" />
+            <div className="glow-amber absolute -top-56 -right-40 size-[40rem] [@media(hover:hover)]:hidden" />
+            <div className="absolute -top-32 -right-24 hidden size-[28rem] rounded-full bg-amber/10 blur-[120px] [@media(hover:hover)]:block" />
           </div>
 
           <div className="relative grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">

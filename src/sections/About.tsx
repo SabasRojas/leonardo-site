@@ -25,7 +25,6 @@ export function About() {
                 asset={images.portrait}
                 alt={`Portrait of ${profile.name}`}
                 className="aspect-square rounded-2xl border border-line"
-                priority
               />
               <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 text-sm">
                 {facts.map(([k, v]) => (

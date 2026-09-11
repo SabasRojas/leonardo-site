@@ -29,7 +29,8 @@ export function Gallery() {
                   className="w-full"
                   imgClassName="h-auto transition-transform duration-[1.4s] ease-[var(--ease-out-expo)] group-hover:scale-[1.04]"
                 />
-                <span className="pointer-events-none absolute inset-x-0 bottom-0 block bg-gradient-to-t from-ink/85 to-transparent p-3 pt-10 text-xs leading-snug text-fg opacity-0 transition-opacity duration-500 group-hover:opacity-100 sm:p-4 sm:text-[13px]">
+                {/* Touch devices never hover, so the caption stays visible there. */}
+                <span className="pointer-events-none absolute inset-x-0 bottom-0 block bg-gradient-to-t from-ink/90 to-transparent p-3 pt-10 text-[11px] leading-snug text-fg transition-opacity duration-500 sm:text-[13px] [@media(hover:hover)]:p-4 [@media(hover:hover)]:text-[13px] [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100">
                   {g.caption}
                 </span>
               </button>

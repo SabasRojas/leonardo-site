@@ -74,7 +74,7 @@ export function LightboxProvider({ children }: { children: ReactNode }) {
             role="dialog"
             aria-modal="true"
             aria-label="Image viewer"
-            className="fixed inset-0 z-[100] flex flex-col bg-ink/95 backdrop-blur-md"
+            className="fixed inset-0 z-[100] flex flex-col bg-ink/95 [@media(hover:hover)]:backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

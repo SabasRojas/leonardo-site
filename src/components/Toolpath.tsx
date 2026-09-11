@@ -1,5 +1,7 @@
-import { motion, useReducedMotion } from 'motion/react'
+import { useRef } from 'react'
+import { motion, useInView, useReducedMotion } from 'motion/react'
 import { cn } from '../lib/cn'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 import { EASE_OUT_EXPO } from '../lib/motion'
 
 /**
@@ -77,6 +79,13 @@ const SPARKS = [
 
 export function Toolpath({ className }: { className?: string }) {
   const reduce = useReducedMotion()
+  const ref = useRef<SVGSVGElement>(null)
+  // Stop the looping tool + sparks once the hero is off screen: no point
+  // burning a phone's battery animating something nobody is looking at.
+  const inView = useInView(ref, { margin: '150px' })
+  const coarse = useMediaQuery('(pointer: coarse)')
+  const sparks = coarse ? SPARKS.slice(0, 4) : SPARKS
+  const running = inView && !reduce
 
   const draw = (delay: number, dur = 1) => ({
     initial: reduce ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 },
@@ -97,6 +106,7 @@ export function Toolpath({ className }: { className?: string }) {
 
   return (
     <svg
+      ref={ref}
       viewBox="0 0 600 600"
       fill="none"
       className={cn('block h-auto w-full', className)}
@@ -190,7 +200,7 @@ export function Toolpath({ className }: { className?: string }) {
       </motion.g>
 
       {/* Tool running the program, throwing sparks at the cut */}
-      {!reduce && (
+      {running && (
         <motion.g
           style={{ offsetPath: `path("${PROGRAM}")`, offsetRotate: '0deg' }}
           initial={{ offsetDistance: '0%', opacity: 0 }}
@@ -201,7 +211,7 @@ export function Toolpath({ className }: { className?: string }) {
           }}
         >
           {/* Sparks: short-lived particles flying out of the cutting point */}
-          {SPARKS.map((s, i) => (
+          {sparks.map((s, i) => (
             <motion.circle
               key={i}
               r={s.r}

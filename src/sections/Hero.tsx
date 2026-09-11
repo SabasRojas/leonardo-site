@@ -13,7 +13,10 @@ export function Hero() {
       {/* Backdrop */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-grid mask-fade-b opacity-60" />
-        <div className="absolute -top-40 left-1/3 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-amber/10 blur-[140px]" />
+        {/* Same amber pool two ways: a blurred disc where there is a real GPU,
+            a plain radial gradient on touch devices, which paints far cheaper. */}
+        <div className="glow-amber absolute -top-64 left-1/3 h-[52rem] w-[52rem] -translate-x-1/2 [@media(hover:hover)]:hidden" />
+        <div className="absolute -top-40 left-1/3 hidden h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-amber/10 blur-[140px] [@media(hover:hover)]:block" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,var(--color-ink)_100%)]" />
       </div>
 
@@ -83,7 +86,7 @@ export function Hero() {
             transition={{ duration: 0.9, ease: EASE_OUT_EXPO, delay: 1.2 }}
           >
             {heroStats.map((s) => (
-              <div key={s.label} className="flex flex-col bg-ink/80 px-4 py-4 backdrop-blur-sm sm:px-5">
+              <div key={s.label} className="flex flex-col bg-ink/90 px-4 py-4 sm:bg-ink/80 sm:px-5 sm:backdrop-blur-sm">
                 <dt className="order-2 mt-1 text-[11px] leading-snug text-muted">{s.label}</dt>
                 <dd className="font-display text-2xl font-medium tracking-tight tabular-nums sm:text-[1.65rem]">
                   {s.value}
@@ -101,7 +104,8 @@ export function Hero() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
         >
-          <div aria-hidden className="absolute inset-[10%] -z-10 rounded-full bg-amber/5 blur-3xl" />
+          <div aria-hidden className="glow-amber-soft absolute -inset-[6%] -z-10 [@media(hover:hover)]:hidden" />
+          <div aria-hidden className="absolute inset-[10%] -z-10 hidden rounded-full bg-amber/5 blur-3xl [@media(hover:hover)]:block" />
           <Toolpath className="mx-auto max-h-[70svh] lg:max-h-[calc(100svh-9rem)]" />
         </motion.div>
       </div>

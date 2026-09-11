@@ -66,6 +66,12 @@
     color-scheme: dark;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  a,
+  button {
+    touch-action: manipulation;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -193,6 +199,26 @@
   backdrop-filter: saturate(140%) blur(14px);
   -webkit-backdrop-filter: saturate(140%) blur(14px);
   border: 1px solid rgb(255 255 255 / 0.08);
+
+  /* Backdrop blur is expensive on phone GPUs: lean on opacity instead. */
+  @media (pointer: coarse) {
+    background: rgb(10 12 15 / 0.92);
+    backdrop-filter: saturate(120%) blur(6px);
+    -webkit-backdrop-filter: saturate(120%) blur(6px);
+  }
+}
+
+/*
+ * Soft light pools. Radial gradients rather than a blurred element, because
+ * filter: blur() over a large box forces phone GPUs to composite and repaint
+ * a huge layer on every scroll frame.
+ */
+@utility glow-amber {
+  background-image: radial-gradient(closest-side, rgb(255 138 43 / 0.13), rgb(255 138 43 / 0.05) 55%, transparent 100%);
+}
+
+@utility glow-amber-soft {
+  background-image: radial-gradient(closest-side, rgb(255 138 43 / 0.07), transparent 100%);
 }
 
 @utility text-gradient-amber {
@@ -228,14 +254,20 @@
 .grain::after {
   content: '';
   position: fixed;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
+  inset: 0;
   pointer-events: none;
   z-index: 60;
   opacity: 0.05;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   mix-blend-mode: overlay;
+}
+
+/* A full-screen blended layer is a real cost on phones for a texture nobody
+   sees at that pixel density. */
+@media (pointer: coarse) {
+  .grain::after {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

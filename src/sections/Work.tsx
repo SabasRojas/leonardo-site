@@ -34,7 +34,7 @@ function ProjectCard({ project, featured, onOpen, index }: { project: Project; f
         <span className={cn('relative block overflow-hidden', featured ? 'aspect-[16/10] md:aspect-[21/9]' : 'aspect-[4/3]')}>
           <Cover project={project} className="h-full w-full" imgClassName="transition-transform duration-[1.4s] ease-[var(--ease-out-expo)] group-hover:scale-[1.05]" />
           <span aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-80" />
-          <span className="absolute top-4 left-4 rounded-full bg-ink/70 px-2.5 py-1 font-mono text-[10px] tracking-[0.2em] text-fg-2 backdrop-blur">
+          <span className="absolute top-4 left-4 rounded-full bg-ink/80 px-2.5 py-1 font-mono text-[10px] tracking-[0.2em] text-fg-2 [@media(hover:hover)]:bg-ink/70 [@media(hover:hover)]:backdrop-blur">
             {project.index}
           </span>
           <span className="absolute top-4 right-4 grid size-9 translate-y-1 place-items-center rounded-full bg-fg text-ink opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
@@ -77,7 +77,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
 
   return (
     <motion.div
-      className="fixed inset-0 z-[95] flex items-end justify-center bg-ink/80 backdrop-blur-md sm:items-center sm:p-6"
+      className="fixed inset-0 z-[95] flex items-end justify-center bg-ink/90 sm:items-center sm:p-6 [@media(hover:hover)]:bg-ink/80 [@media(hover:hover)]:backdrop-blur-md"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
